@@ -1,0 +1,29 @@
+name: Download ICAI Material
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Script
+        run: python download_icai.py
+
+      - name: Upload PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: CA-Foundation-Material
+          path: CA_Foundation_Study_Material/
